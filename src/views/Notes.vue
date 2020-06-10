@@ -1,7 +1,7 @@
 <template>
   <div class="notes">
     <v-row>
-      <v-col cols="8">
+      <v-col cols="6" offset="2">
         <notes-form @update="updateNotes" :label="activeLabel" />
       </v-col>
     </v-row>
