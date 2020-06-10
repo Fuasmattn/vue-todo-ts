@@ -2,9 +2,9 @@
   <v-app>
     <v-navigation-drawer
       v-model="mini"
-      expand-on-hover
       color="white"
       hide-overlay
+      :mini-variant.sync="mini"
       mini-variant-width="64"
       permanent
       clipped
@@ -36,16 +36,15 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+    <v-container fluid>
+      <slot></slot>
+    </v-container>
 
-    <v-app-bar app clipped-left color="indigo" dark flat>
+    <v-app-bar app clipped-left color="white" flat>
+      <v-app-bar-nav-icon @click.stop="mini = !mini"></v-app-bar-nav-icon>
       <v-toolbar-title>{{ appname }}</v-toolbar-title>
     </v-app-bar>
 
-    <v-content>
-      <v-container>
-        <slot></slot>
-      </v-container>
-    </v-content>
     <v-footer color="indigo" app></v-footer>
   </v-app>
 </template>

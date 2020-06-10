@@ -11,6 +11,7 @@ export interface Note {
   isDone?: boolean;
   label: string;
   tasks?: Array<Task>;
+  color: string;
 }
 
 export interface Label {
@@ -18,22 +19,28 @@ export interface Label {
   color?: string;
 }
 
-const defaultColor = "#ffffff";
+const defaultColor = "#FFFFFF";
 
 @Module({ namespaced: true })
 class Notes extends VuexModule {
   public notes: Array<Note> = [
-    { title: "Walk the dog", label: "Private", content: "" },
+    {
+      title: "Walk the dog",
+      label: "Private",
+      content: "",
+      color: defaultColor
+    },
     {
       title: "there is a cat",
       label: "Private",
       content: "careful, you don't own any cat.",
+      color: "#A7FFEB",
       tasks: [{ isDone: false, title: "bring cat back to the neighbors" }]
     },
-    { title: "Do nothing", label: "", content: "" }
+    { title: "Do nothing", label: "", content: "", color: defaultColor }
   ];
 
-  public labels: Array<Label> = [{ title: "Private" }];
+  public labels: Array<Label> = [{ title: "Private" }, { title: "Work" }];
 
   get notesByLabel() {
     return this.notes.reduce(

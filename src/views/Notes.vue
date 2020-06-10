@@ -7,7 +7,7 @@
     </v-row>
     <v-row dense>
       <v-col v-for="note in notes" :key="note.title" :cols="4">
-        <v-card>
+        <v-card :color="note.color">
           <v-card-title v-text="note.title"></v-card-title>
           <v-card-subtitle v-if="note.content"
             >{{ note.content }}
@@ -60,11 +60,12 @@ export default class Notes extends Vue {
   @notes.Action
   public addNote!: (note: Note) => void;
 
-  updateNotes(payload: { title: string; content: string }) {
+  updateNotes(payload: { title: string; content: string; color: string }) {
     const note: Note = {
       title: payload.title,
       content: payload.content,
-      label: this.activeLabel
+      label: this.activeLabel,
+      color: payload.color
     };
     this.addNote(note);
   }
