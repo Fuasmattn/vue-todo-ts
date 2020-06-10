@@ -16,21 +16,19 @@
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-card class="mx-auto" max-width="400" tile>
-          <v-list>
-            <v-subheader>My Tasks</v-subheader>
-            <v-list-item-group color="primary">
-              <v-list-item v-for="(task, i) in tasks" :key="i">
-                <v-list-item-content>
-                  <v-checkbox
-                    v-model="task.isDone"
-                    :label="task.title"
-                  ></v-checkbox>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list-item-group>
-          </v-list>
-        </v-card>
+        <v-list>
+          <v-subheader>My Tasks</v-subheader>
+          <v-list-item-group color="primary">
+            <v-list-item v-for="(task, i) in tasks" :key="i">
+              <v-list-item-content>
+                <v-checkbox
+                  v-model="task.isDone"
+                  :label="task.title"
+                ></v-checkbox>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
       </v-col>
     </v-row>
   </v-container>
@@ -49,13 +47,17 @@ export default class Tasks extends Vue {
   public activeLabel = "";
   public input = "";
 
-  @Watch("$route.params.label")
+  @Watch("$route.params.label", { immediate: true })
   labelChanged(label: string) {
     this.activeLabel = label ? label : "";
   }
 
-  @tasks.State
-  public tasks!: Array<Task>;
+  get tasks() {
+    return this.tasksByLabel[this.activeLabel];
+  }
+
+  @tasks.Getter
+  public tasksByLabel!: { [label: string]: Array<Task> };
 
   @tasks.Action
   public addTask!: (title: string) => void;

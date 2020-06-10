@@ -3,6 +3,7 @@ import { VuexModule, Module, Mutation, Action } from "vuex-module-decorators";
 export interface Task {
   title: string;
   isDone: boolean;
+  label: string;
 }
 
 export interface Label {
@@ -14,16 +15,31 @@ const defaultColor = "#ffffff";
 
 @Module({ namespaced: true })
 class Tasks extends VuexModule {
-  public tasks: Array<Task> = [{ isDone: false, title: "Walk the dog" }];
+  public tasks: Array<Task> = [
+    { isDone: false, title: "Walk the dog", label: "private" },
+    { isDone: false, title: "Walk the cat", label: "private" }
+  ];
+
   public labels: Array<Label> = [{ title: "private" }];
+
+  get tasksByLabel() {
+    return this.tasks.reduce(
+      (list: { [label: string]: Array<Task> }, task: Task) => {
+        const t = list[task.label] ? list[task.label] : [];
+        list[task.label] = [...t, task];
+        return list;
+      },
+      {}
+    );
+  }
 
   @Mutation
   public updateTasks(task: Task): void {
     this.tasks.push(task);
   }
   @Action
-  public addTask(title: string): void {
-    const task: Task = { title, isDone: false };
+  public addTask(title: string, label = ""): void {
+    const task: Task = { title, isDone: false, label };
     this.context.commit("updateTasks", task);
   }
 
