@@ -16,11 +16,12 @@ const defaultColor = "#ffffff";
 @Module({ namespaced: true })
 class Tasks extends VuexModule {
   public tasks: Array<Task> = [
-    { isDone: false, title: "Walk the dog", label: "private" },
-    { isDone: false, title: "Walk the cat", label: "private" }
+    { isDone: false, title: "Walk the dog", label: "Private" },
+    { isDone: false, title: "Walk the cat", label: "Private" },
+    { isDone: false, title: "Do nothing", label: "" }
   ];
 
-  public labels: Array<Label> = [{ title: "private" }];
+  public labels: Array<Label> = [{ title: "Private" }];
 
   get tasksByLabel() {
     return this.tasks.reduce(

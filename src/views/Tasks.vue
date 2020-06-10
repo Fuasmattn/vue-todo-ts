@@ -17,7 +17,7 @@
     <v-row>
       <v-col cols="12">
         <v-list>
-          <v-subheader>My Tasks</v-subheader>
+          <v-subheader>{{ tasksTitle }}</v-subheader>
           <v-list-item-group color="primary">
             <v-list-item v-for="(task, i) in tasks" :key="i">
               <v-list-item-content>
@@ -54,6 +54,10 @@ export default class Tasks extends Vue {
 
   get tasks() {
     return this.tasksByLabel[this.activeLabel];
+  }
+
+  get tasksTitle() {
+    return this.activeLabel ? this.activeLabel : "My Tasks";
   }
 
   @tasks.Getter

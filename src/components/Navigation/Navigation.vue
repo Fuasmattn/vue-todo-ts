@@ -12,14 +12,6 @@
       app
     >
       <v-list :shaped="!mini" :rounded="mini" dense>
-        <!-- <v-list-item to="/" link>
-          <v-list-item-action>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item> -->
         <v-list-item to="/" link>
           <v-list-item-action>
             <v-icon>mdi-lightbulb-outline</v-icon>
@@ -76,7 +68,9 @@ export default class Navigation extends Vue {
   public mini = true;
 
   get appname() {
-    return process.env.VUE_APP_TITLE;
+    return this.$route.params.label
+      ? this.$route.params.label
+      : process.env.VUE_APP_TITLE;
   }
 
   toggleDrawer() {
