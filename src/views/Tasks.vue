@@ -17,7 +17,6 @@
     <v-row>
       <v-col cols="12">
         <v-card class="mx-auto" max-width="400" tile>
-          hi {{ activeLabel }}
           <v-list>
             <v-subheader>My Tasks</v-subheader>
             <v-list-item-group color="primary">
