@@ -16,7 +16,7 @@ export default class App extends Vue {}
 
 <style lang="scss">
 * {
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", Arial, sans-serif;
 }
 
 /* style overrides app-bar */

@@ -6,7 +6,7 @@
       </v-col>
     </v-row>
     <v-row dense>
-      <v-col v-for="note in notes" :key="note.title" :cols="4">
+      <v-col v-for="note in notes" :key="note.title" :cols="3">
         <v-card :color="note.color">
           <v-card-title v-text="note.title"></v-card-title>
           <v-card-subtitle v-if="note.content"

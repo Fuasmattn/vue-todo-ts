@@ -48,8 +48,21 @@
     </v-container>
 
     <v-app-bar app clipped-left color="white" flat>
-      <v-app-bar-nav-icon @click.stop="mini = !mini"></v-app-bar-nav-icon>
-      <v-toolbar-title>{{ appname }}</v-toolbar-title>
+      <v-app-bar-nav-icon
+        class="nav-icon"
+        @click.stop="mini = !mini"
+      ></v-app-bar-nav-icon>
+      <v-toolbar-title class="title"
+        ><div class="d-flex">
+          <v-img
+            v-if="!label"
+            class="mr-3"
+            :width="32"
+            src="../../assets/keep-icon.png"
+          ></v-img
+          ><span class="headline appname">{{ appname }}</span>
+        </div>
+      </v-toolbar-title>
     </v-app-bar>
 
     <v-footer color="white" app>
@@ -77,10 +90,12 @@ export default class Navigation extends Vue {
   public mini = true;
   public item = 1;
 
+  get label() {
+    return this.$route.params.label;
+  }
+
   get appname() {
-    return this.$route.params.label
-      ? this.$route.params.label
-      : process.env.VUE_APP_TITLE;
+    return this.label ? this.label : process.env.VUE_APP_TITLE;
   }
 
   toggleDrawer() {
@@ -91,5 +106,14 @@ export default class Navigation extends Vue {
 <style lang="scss" scoped>
 .active-item > div {
   color: black;
+}
+.appname {
+  color: #5f6368;
+}
+.title {
+  padding-left: 5px !important;
+}
+.nav-icon {
+  margin-left: -8px !important;
 }
 </style>
