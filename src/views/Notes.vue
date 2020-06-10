@@ -1,17 +1,8 @@
 <template>
-  <v-container>
+  <div class="notes">
     <v-row>
       <v-col cols="8">
-        <v-container>
-          <v-form ref="form">
-            <v-text-field
-              @keydown.enter="updateNotes"
-              v-model="input"
-              label="New Note"
-              solo
-            ></v-text-field>
-          </v-form>
-        </v-container>
+        <notes-form @update="updateNotes" :label="activeLabel" />
       </v-col>
     </v-row>
     <v-row dense>
@@ -25,7 +16,6 @@
                 v-for="(task, i) in note.tasks"
                 :key="i"
                 dense
-                ripple="false"
                 class="checkbox"
                 v-model="task.isDone"
                 :label="task.title"
@@ -34,21 +24,22 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { namespace } from "vuex-class";
 
+import NotesForm from "../components/Notes/NotesForm.vue";
+
 import { Note } from "../store/modules/notes";
 
 const notes = namespace("notes");
 
-@Component
+@Component({ components: { NotesForm } })
 export default class Notes extends Vue {
   public activeLabel = "";
-  public input = "";
 
   @Watch("$route.params.label", { immediate: true })
   labelChanged(label: string) {
@@ -67,18 +58,20 @@ export default class Notes extends Vue {
   public notesByLabel!: { [label: string]: Array<Note> };
 
   @notes.Action
-  public addNote!: (title: string) => void;
+  public addNote!: (note: Note) => void;
 
-  resetInput() {
-    this.input = "";
-  }
-  updateNotes() {
-    this.addNote(this.input);
-    this.resetInput();
+  updateNotes(payload: { title: string; content: string }) {
+    const note: Note = {
+      title: payload.title,
+      content: payload.content,
+      label: this.activeLabel
+    };
+    this.addNote(note);
   }
 }
 </script>
 <style lang="scss" scoped>
-.checkbox {
+.notes {
+  padding-left: 50px;
 }
 </style>

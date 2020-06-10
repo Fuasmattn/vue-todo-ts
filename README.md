@@ -14,6 +14,14 @@ yarn install
 yarn serve
 ```
 
+### Generate TS declaration for .vue files
+```
+yarn global add vuetype
+vuetype src/components
+https://github.com/ktsn/vuetype
+```
+
+
 ### Compiles and minifies for production
 ```
 yarn build

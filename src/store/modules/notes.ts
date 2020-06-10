@@ -27,7 +27,7 @@ class Notes extends VuexModule {
     {
       title: "there is a cat",
       label: "Private",
-      content: "careful, you don't have a cat.",
+      content: "careful, you don't own any cat.",
       tasks: [{ isDone: false, title: "bring cat back to the neighbors" }]
     },
     { title: "Do nothing", label: "", content: "" }
@@ -51,8 +51,7 @@ class Notes extends VuexModule {
     this.notes.push(note);
   }
   @Action
-  public addNote(title: string, label = ""): void {
-    const note: Note = { title, isDone: false, label };
+  public addNote(note: Note): void {
     this.context.commit("updateNotes", note);
   }
 
