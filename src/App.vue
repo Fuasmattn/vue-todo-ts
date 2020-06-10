@@ -24,6 +24,13 @@ export default class App extends Vue {}
   border-bottom: 1px solid #e4e4e4 !important;
 }
 
+/* List Item style overrides */
+.theme--light.v-list-item--active:before,
+.theme--light.v-list-item--active:hover:before,
+.theme--light.v-list-item:focus:before {
+  opacity: 0.3 !important;
+}
+
 /* style overrides for vuetify color picker component */
 .v-color-picker__color {
   border-radius: 100% !important;

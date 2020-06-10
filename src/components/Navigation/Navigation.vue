@@ -11,9 +11,13 @@
       floating
       app
     >
-      <v-list :shaped="!mini" :rounded="mini" dense>
-        <v-list-item-group v-model="item" color="primary">
-          <v-list-item to="/" link>
+      <v-list :shaped="!mini" :rounded="mini">
+        <v-list-item-group
+          v-model="item"
+          active-class="active-item"
+          color="primary"
+        >
+          <v-list-item :ripple="false" to="/" link>
             <v-list-item-action>
               <v-icon>mdi-lightbulb-outline</v-icon>
             </v-list-item-action>
@@ -23,6 +27,7 @@
           </v-list-item>
 
           <v-list-item
+            :ripple="false"
             :to="`/labels/${label.title}`"
             v-for="label in labels"
             :key="label.title"
@@ -83,4 +88,8 @@ export default class Navigation extends Vue {
   }
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.active-item > div {
+  color: black;
+}
+</style>

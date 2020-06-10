@@ -12,51 +12,53 @@
         :append-icon="focused ? '' : 'mdi-lightbulb-outline'"
         @focus="focused = true"
       ></v-text-field>
-      <div v-if="focused">
-        <v-textarea
-          solo
-          flat
-          auto-grow
-          hide-details
-          no-resize
-          rows="1"
-          :background-color="color"
-          v-model="content"
-          label="Write a note..."
-        ></v-textarea>
-        <div class="label">
-          <v-chip v-if="label" color="#FFFFFF50" class="ma-2" close>
-            {{ label }}
-          </v-chip>
-        </div>
-        <div class="actions">
-          <v-menu
-            bottom
-            offset-x
-            offset-y
-            origin="left top"
-            transition="scale-transition"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn v-bind="attrs" v-on="on" icon>
-                <v-icon>mdi-palette</v-icon>
-              </v-btn>
-            </template>
+      <v-expand-transition>
+        <div v-if="focused">
+          <v-textarea
+            solo
+            flat
+            auto-grow
+            hide-details
+            no-resize
+            rows="1"
+            :background-color="color"
+            v-model="content"
+            label="Write a note..."
+          ></v-textarea>
+          <div class="label">
+            <v-chip v-if="label" color="#FFFFFF50" class="ma-2" close>
+              {{ label }}
+            </v-chip>
+          </div>
+          <div class="actions">
+            <v-menu
+              bottom
+              offset-x
+              offset-y
+              origin="left top"
+              transition="scale-transition"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn v-bind="attrs" v-on="on" icon>
+                  <v-icon>mdi-palette</v-icon>
+                </v-btn>
+              </template>
 
-            <v-color-picker
-              hide-inputs
-              hide-switch-mode
-              show-swatches
-              hide-canvas
-              disabled
-              :swatches="swatches"
-              v-model="color"
-            ></v-color-picker>
-          </v-menu>
+              <v-color-picker
+                hide-inputs
+                hide-switch-mode
+                show-swatches
+                hide-canvas
+                disabled
+                :swatches="swatches"
+                v-model="color"
+              ></v-color-picker>
+            </v-menu>
 
-          <v-btn text @click.prevent="updateNotes">Close</v-btn>
+            <v-btn text @click.prevent="updateNotes">Close</v-btn>
+          </div>
         </div>
-      </div>
+      </v-expand-transition>
     </v-form>
   </v-card>
 </template>
