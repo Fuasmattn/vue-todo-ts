@@ -12,28 +12,30 @@
       app
     >
       <v-list :shaped="!mini" :rounded="mini" dense>
-        <v-list-item to="/" link>
-          <v-list-item-action>
-            <v-icon>mdi-lightbulb-outline</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Notes</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+        <v-list-item-group v-model="item" color="primary">
+          <v-list-item to="/" link>
+            <v-list-item-action>
+              <v-icon>mdi-lightbulb-outline</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Notes</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
 
-        <v-list-item
-          :to="`/labels/${label.title}`"
-          v-for="label in labels"
-          :key="label.title"
-          link
-        >
-          <v-list-item-action>
-            <v-icon>mdi-label-outline</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>{{ label.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+          <v-list-item
+            :to="`/labels/${label.title}`"
+            v-for="label in labels"
+            :key="label.title"
+            link
+          >
+            <v-list-item-action>
+              <v-icon>mdi-label-outline</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>{{ label.title }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
     <v-container fluid>
@@ -68,6 +70,7 @@ export default class Navigation extends Vue {
   public addLabel!: (title: string, color?: string) => void;
 
   public mini = true;
+  public item = 1;
 
   get appname() {
     return this.$route.params.label
