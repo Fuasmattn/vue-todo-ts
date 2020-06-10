@@ -45,7 +45,10 @@
       <v-toolbar-title>{{ appname }}</v-toolbar-title>
     </v-app-bar>
 
-    <v-footer color="indigo" app></v-footer>
+    <v-footer color="white" app>
+      <v-spacer></v-spacer>Made with <v-icon class="mx-2">mdi-laptop</v-icon> by
+      Martin Prinz</v-footer
+    >
   </v-app>
 </template>
 
