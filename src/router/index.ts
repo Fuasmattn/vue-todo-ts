@@ -1,18 +1,18 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
-import Tasks from "../views/Tasks.vue";
+import Notes from "../views/Notes.vue";
 
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
     path: "/",
-    name: "Tasks",
-    component: Tasks
+    name: "Notes",
+    component: Notes
   },
   {
     path: "/labels/:label",
-    component: Tasks
+    component: Notes
   }
 ];
 

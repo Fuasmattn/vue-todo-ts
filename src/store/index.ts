@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import tasks from "./modules/tasks";
+import notes from "./modules/notes";
 
 Vue.use(Vuex);
 
@@ -8,5 +8,5 @@ export default new Vuex.Store({
   state: {},
   mutations: {},
   actions: {},
-  modules: { tasks }
+  modules: { notes }
 });

@@ -17,7 +17,7 @@
             <v-icon>mdi-lightbulb-outline</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Tasks</v-list-item-title>
+            <v-list-item-title>Notes</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
@@ -53,16 +53,16 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { namespace } from "vuex-class";
-import { Label } from "../../store/modules/tasks";
+import { Label } from "../../store/modules/notes";
 
-const tasks = namespace("tasks");
+const notes = namespace("notes");
 
 @Component
 export default class Navigation extends Vue {
-  @tasks.State
+  @notes.State
   public labels!: Array<Label>;
 
-  @tasks.Action
+  @notes.Action
   public addLabel!: (title: string, color?: string) => void;
 
   public mini = true;
