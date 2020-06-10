@@ -12,20 +12,34 @@
       app
     >
       <v-list :shaped="!mini" :rounded="mini" dense>
-        <v-list-item to="/" link>
+        <!-- <v-list-item to="/" link>
           <v-list-item-action>
             <v-icon>mdi-home</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
-        </v-list-item>
-        <v-list-item to="/tasks" link>
+        </v-list-item> -->
+        <v-list-item to="/" link>
           <v-list-item-action>
-            <v-icon>mdi-calendar-check</v-icon>
+            <v-icon>mdi-lightbulb-outline</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Tasks</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item
+          :to="`/labels/${label.title}`"
+          v-for="label in labels"
+          :key="label.title"
+          link
+        >
+          <v-list-item-action>
+            <v-icon>mdi-label-outline</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>{{ label.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -36,7 +50,7 @@
     </v-app-bar>
 
     <v-content>
-      <v-container :class="{ mini }">
+      <v-container>
         <slot></slot>
       </v-container>
     </v-content>
@@ -46,8 +60,19 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { namespace } from "vuex-class";
+import { Label } from "../../store/modules/tasks";
+
+const tasks = namespace("tasks");
+
 @Component
 export default class Navigation extends Vue {
+  @tasks.State
+  public labels!: Array<Label>;
+
+  @tasks.Action
+  public addLabel!: (title: string, color?: string) => void;
+
   public mini = true;
 
   get appname() {
@@ -59,7 +84,4 @@ export default class Navigation extends Vue {
   }
 }
 </script>
-<style lang="scss" scoped>
-.mini {
-}
-</style>
+<style lang="scss" scoped></style>

@@ -17,14 +17,11 @@
     <v-row>
       <v-col cols="12">
         <v-card class="mx-auto" max-width="400" tile>
+          hi {{ activeLabel }}
           <v-list>
             <v-subheader>My Tasks</v-subheader>
-            <v-list-item-group v-model="item" color="primary">
-              <v-list-item
-                v-for="(task, i) in tasks"
-                :key="i"
-                :inactive="inactive"
-              >
+            <v-list-item-group color="primary">
+              <v-list-item v-for="(task, i) in tasks" :key="i">
                 <v-list-item-content>
                   <v-checkbox
                     v-model="task.isDone"
@@ -41,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { namespace } from "vuex-class";
 
 import { Task } from "../store/modules/tasks";
@@ -50,7 +47,14 @@ const tasks = namespace("tasks");
 
 @Component
 export default class Tasks extends Vue {
+  public activeLabel = "";
   public input = "";
+
+  @Watch("$route.params.label")
+  labelChanged(label: string) {
+    this.activeLabel = label ? label : "";
+  }
+
   @tasks.State
   public tasks!: Array<Task>;
 
