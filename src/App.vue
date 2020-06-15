@@ -19,6 +19,10 @@ export default class App extends Vue {}
   font-family: "Roboto", Arial, sans-serif;
 }
 
+.v-card {
+  border-radius: $border-radius-root !important;
+}
+
 /* style overrides app-bar */
 .v-toolbar__content {
   border-bottom: 1px solid #e4e4e4 !important;

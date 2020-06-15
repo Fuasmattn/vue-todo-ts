@@ -22,7 +22,20 @@
               <v-icon>mdi-lightbulb-outline</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>Notes</v-list-item-title>
+              <v-list-item-title class="font-weight-medium"
+                >Notes</v-list-item-title
+              >
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-list-item :ripple="false" to="/reminders" link>
+            <v-list-item-action>
+              <v-icon>mdi-bell-outline</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title class="font-weight-medium"
+                >Reminders</v-list-item-title
+              >
             </v-list-item-content>
           </v-list-item>
 
@@ -37,7 +50,45 @@
               <v-icon>mdi-label-outline</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>{{ label.title }}</v-list-item-title>
+              <v-list-item-title class="font-weight-medium">{{
+                label.title
+              }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-list-item :ripple="false">
+            <v-list-item-action>
+              <v-icon>mdi-pencil-outline</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title class="font-weight-medium">
+              </v-list-item-title>
+              <edit-labels-dialog
+                :labels="labels"
+                @update:labels="onUpdateLabels"
+              />
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-list-item to="/archive" :ripple="false">
+            <v-list-item-action>
+              <v-icon>mdi-archive-arrow-down-outline</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title class="font-weight-medium"
+                >Archive</v-list-item-title
+              >
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-list-item to="/trash" :ripple="false">
+            <v-list-item-action>
+              <v-icon>mdi-trash-can-outline</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title class="font-weight-medium"
+                >Trash</v-list-item-title
+              >
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
@@ -77,18 +128,24 @@ import { Component, Vue } from "vue-property-decorator";
 import { namespace } from "vuex-class";
 import { Label } from "../../store/modules/notes";
 
+import EditLabelsDialog from "../EditLabels/EditLabelsDialog.vue";
+
 const notes = namespace("notes");
 
-@Component
+@Component({ components: { EditLabelsDialog } })
 export default class Navigation extends Vue {
   @notes.State
   public labels!: Array<Label>;
 
   @notes.Action
-  public addLabel!: (title: string, color?: string) => void;
+  public createLabel!: (title: string, color?: string) => void;
+
+  @notes.Action
+  public updateLabels!: (titles: Array<Label>) => void;
 
   public mini = true;
   public item = 1;
+  public labelDialog = false;
 
   get label() {
     return this.$route.params.label;
@@ -100,6 +157,10 @@ export default class Navigation extends Vue {
 
   toggleDrawer() {
     this.mini = !this.mini;
+  }
+
+  onUpdateLabels(labels: Array<Label>) {
+    this.updateLabels(labels);
   }
 }
 </script>

@@ -1,6 +1,8 @@
 <template>
   <v-hover v-slot:default="{ hover }">
     <v-card
+      :ripple="false"
+      @click="$emit('click')"
       class="v-card"
       outlined
       :elevation="hover ? 2 : 0"
@@ -28,7 +30,7 @@
           <v-checkbox
             v-for="(task, i) in getClosedTasks(note)"
             :key="i"
-            densej
+            dense
             hide-details
             color="black"
             class="my-2"
@@ -42,8 +44,8 @@
         </div>
       </v-card-subtitle>
       <div class="px-3">
-        <v-chip small v-if="note.label" color="#00000010">
-          <span>{{ note.label }}</span>
+        <v-chip small v-if="note.labelId" color="#00000010">
+          <span>{{ labelsById[note.labelId][0].title }}</span>
         </v-chip>
       </div>
       <v-card-actions
@@ -67,11 +69,17 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-import { Note, Task } from "../../store/modules/notes";
+import { Note, Task, Label } from "../../store/modules/notes";
+
+import { namespace } from "vuex-class";
+const notes = namespace("notes");
 
 @Component
 export default class Card extends Vue {
   @Prop() readonly note!: Note;
+
+  @notes.Getter
+  public labelsById!: { [id: string]: Label };
 
   getOpenTasks(note: Note) {
     return note && note.tasks

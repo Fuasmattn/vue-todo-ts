@@ -6,10 +6,11 @@ export interface Task {
 }
 
 export interface Note {
+  id: string;
   title: string;
   content?: string;
   isDone?: boolean;
-  label: string;
+  labelId: number | string;
   tasks?: Array<Task>;
   color: string;
 }
@@ -17,6 +18,7 @@ export interface Note {
 export interface Label {
   title: string;
   color?: string;
+  id: string;
 }
 
 const defaultColor = "#FFFFFF";
@@ -25,14 +27,16 @@ const defaultColor = "#FFFFFF";
 class Notes extends VuexModule {
   public notes: Array<Note> = [
     {
+      id: "0",
       title: "Walk the dog",
-      label: "Private",
+      labelId: "Private",
       content: "",
       color: defaultColor
     },
     {
+      id: "1",
       title: "there is a cat",
-      label: "Private",
+      labelId: "Private",
       content: "",
       color: "#A7FFEB",
       tasks: [
@@ -41,16 +45,36 @@ class Notes extends VuexModule {
         { isDone: true, title: "find a cat" }
       ]
     },
-    { title: "Do nothing", label: "", content: "", color: defaultColor }
+    {
+      title: "Do nothing",
+      labelId: "",
+      content: "",
+      color: defaultColor,
+      id: "3"
+    }
   ];
 
-  public labels: Array<Label> = [{ title: "Private" }, { title: "Work" }];
+  public labels: Array<Label> = [
+    { id: "Private", title: "Private" },
+    { id: "Work", title: "Work" }
+  ];
+
+  get labelsById() {
+    return this.labels.reduce(
+      (list: { [labelId: string]: Array<Label> }, label: Label) => {
+        const t = list[label.id] ? list[label.id] : [];
+        list[label.id] = [...t, label];
+        return list;
+      },
+      {}
+    );
+  }
 
   get notesByLabel() {
     return this.notes.reduce(
       (list: { [label: string]: Array<Note> }, note: Note) => {
-        const t = list[note.label] ? list[note.label] : [];
-        list[note.label] = [...t, note];
+        const t = list[note.labelId] ? list[note.labelId] : [];
+        list[note.labelId] = [...t, note];
         return list;
       },
       {}
@@ -58,22 +82,39 @@ class Notes extends VuexModule {
   }
 
   @Mutation
-  public updateNotes(note: Note): void {
+  public setNote(note: Note): void {
     this.notes.push(note);
-  }
-  @Action
-  public addNote(note: Note): void {
-    this.context.commit("updateNotes", note);
   }
 
   @Mutation
-  public updateLabels(label: Label): void {
+  public updateNotes(notes: Array<Note>): void {
+    this.notes = notes;
+  }
+
+  @Action
+  public createNote(note: Note): void {
+    this.context.commit("setNote", note);
+  }
+
+  @Mutation
+  public addLabel(label: Label): void {
     this.labels.push(label);
   }
+
   @Action
-  public addLabel(title: string, color = defaultColor): void {
-    const label: Label = { title, color };
-    this.context.commit("updateLabels", label);
+  public createLabel(title: string, color = defaultColor): void {
+    const label: Label = { title, color, id: title };
+    this.context.commit("addLabel", label);
+  }
+
+  @Mutation
+  public setLabels(labels: Array<Label>): void {
+    this.labels = labels;
+  }
+
+  @Action
+  public updateLabels(labels: Array<Label>): void {
+    this.context.commit("setLabels", labels);
   }
 }
 export default Notes;

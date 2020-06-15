@@ -1,5 +1,5 @@
 <template>
-  <v-card :color="color">
+  <v-card outlined class="card" :color="color">
     <v-form ref="form">
       <div class="d-flex pr-3">
         <v-text-field
@@ -9,9 +9,14 @@
           solo
           :background-color="color"
           v-model="title"
-          :label="focused ? 'Title' : 'Write a note...'"
           @focus="focused = true"
-        ></v-text-field>
+        >
+          <template v-slot:label>
+            <span class="font-weight-medium">{{
+              focused ? "Title" : "Write a note..."
+            }}</span>
+          </template>
+        </v-text-field>
         <div v-if="!focused">
           <v-btn icon class="pa-6 notes-option"
             ><v-icon>mdi-check-box-outline</v-icon></v-btn
@@ -119,6 +124,10 @@ export default class NotesForm extends Vue {
 </script>
 
 <style scoped lang="scss">
+.card {
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302),
+    0 2px 6px 2px rgba(60, 64, 67, 0.149);
+}
 .actions {
   display: flex;
   padding: 5px 15px 5px 8px;
