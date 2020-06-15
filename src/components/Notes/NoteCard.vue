@@ -7,7 +7,7 @@
       :style="`background: ${note.color}`"
     >
       <v-card-title class="text-body-1" v-text="note.title"></v-card-title>
-      <v-card-subtitle
+      <v-card-subtitle v-if="note.tasks || note.content"
         >{{ note.content }}
         <div v-if="note.tasks" class="mt-4">
           <v-checkbox
@@ -40,11 +40,12 @@
             ></v-checkbox
           >
         </div>
-
-        <v-chip small v-if="note.label" color="#00000010" class="mt-4">
+      </v-card-subtitle>
+      <div class="px-3">
+        <v-chip small v-if="note.label" color="#00000010">
           <span>{{ note.label }}</span>
         </v-chip>
-      </v-card-subtitle>
+      </div>
       <v-card-actions
         :style="`opacity: ${hover ? 1 : 0}`"
         class="card-actions pa-0"
