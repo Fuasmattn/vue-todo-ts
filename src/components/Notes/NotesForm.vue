@@ -53,7 +53,7 @@
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-btn v-bind="attrs" v-on="on" icon>
-                  <v-icon>mdi-palette</v-icon>
+                  <v-icon>mdi-palette-outline</v-icon>
                 </v-btn>
               </template>
 

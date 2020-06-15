@@ -1,45 +1,67 @@
 <template>
-  <v-card :color="note.color">
-    <v-card-title class="text-body-1" v-text="note.title"></v-card-title>
-    <v-card-subtitle
-      >{{ note.content }}
-      <div v-if="note.tasks" class="mt-4">
-        <v-checkbox
-          v-for="(task, i) in getOpenTasks(note)"
-          :key="i + 'open'"
-          dense
-          hide-details
-          class="my-2"
-          v-model="task.isDone"
-          ><template v-slot:label
-            ><span class="text-body-2">{{ task.title }}</span></template
-          ></v-checkbox
-        >
-        <v-divider
-          class="my-2"
-          v-if="!getOpenTasks(note).length || getClosedTasks(note).length"
-        ></v-divider>
-        <v-checkbox
-          v-for="(task, i) in getClosedTasks(note)"
-          :key="i"
-          densej
-          hide-details
-          color="black"
-          class="my-2"
-          v-model="task.isDone"
-          ><template v-slot:label
-            ><span class="text-decoration-line-through text-body-2">{{
-              task.title
-            }}</span></template
-          ></v-checkbox
-        >
-      </div>
+  <v-hover v-slot:default="{ hover }">
+    <v-card
+      class="v-card"
+      outlined
+      :elevation="hover ? 2 : 0"
+      :style="`background: ${note.color}`"
+    >
+      <v-card-title class="text-body-1" v-text="note.title"></v-card-title>
+      <v-card-subtitle
+        >{{ note.content }}
+        <div v-if="note.tasks" class="mt-4">
+          <v-checkbox
+            v-for="(task, i) in getOpenTasks(note)"
+            :key="i + 'open'"
+            dense
+            hide-details
+            class="my-2"
+            v-model="task.isDone"
+            ><template v-slot:label
+              ><span class="text-body-2">{{ task.title }}</span></template
+            ></v-checkbox
+          >
+          <v-divider
+            class="my-2"
+            v-if="!getOpenTasks(note).length || getClosedTasks(note).length"
+          ></v-divider>
+          <v-checkbox
+            v-for="(task, i) in getClosedTasks(note)"
+            :key="i"
+            densej
+            hide-details
+            color="black"
+            class="my-2"
+            v-model="task.isDone"
+            ><template v-slot:label
+              ><span class="text-decoration-line-through text-body-2">{{
+                task.title
+              }}</span></template
+            ></v-checkbox
+          >
+        </div>
 
-      <v-chip small v-if="note.label" color="#00000010" class="mt-4">
-        <span>{{ note.label }}</span>
-      </v-chip>
-    </v-card-subtitle>
-  </v-card>
+        <v-chip small v-if="note.label" color="#00000010" class="mt-4">
+          <span>{{ note.label }}</span>
+        </v-chip>
+      </v-card-subtitle>
+      <v-card-actions
+        :style="`opacity: ${hover ? 1 : 0}`"
+        class="card-actions pa-0"
+      >
+        <v-list-item class="grow">
+          <v-row>
+            <v-btn small icon class="mr-2"
+              ><v-icon small>mdi-bell-plus-outline</v-icon></v-btn
+            >
+            <v-btn small icon class="mr-2"
+              ><v-icon small>mdi-palette-outline</v-icon></v-btn
+            >
+          </v-row>
+        </v-list-item></v-card-actions
+      >
+    </v-card>
+  </v-hover>
 </template>
 
 <script lang="ts">
@@ -63,3 +85,10 @@ export default class Card extends Vue {
   }
 }
 </script>
+<style lang="scss" scoped>
+.card-actions {
+  opacity: 0;
+  height: 48px;
+  transition: all 0.2s ease-in-out;
+}
+</style>
