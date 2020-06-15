@@ -9,7 +9,7 @@
           :key="i + 'open'"
           dense
           hide-details
-          class="checkbox"
+          class="my-2"
           v-model="task.isDone"
           ><template v-slot:label
             ><span class="text-body-2">{{ task.title }}</span></template
@@ -25,7 +25,7 @@
           densej
           hide-details
           color="black"
-          class="checkbox"
+          class="my-2"
           v-model="task.isDone"
           ><template v-slot:label
             ><span class="text-decoration-line-through text-body-2">{{

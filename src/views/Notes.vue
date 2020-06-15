@@ -62,7 +62,4 @@ export default class Notes extends Vue {
 .notes {
   padding-left: 50px;
 }
-.checkbox {
-  margin-top: 5px !important;
-}
 </style>
