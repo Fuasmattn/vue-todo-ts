@@ -7,21 +7,7 @@
     </v-row>
     <v-row dense>
       <v-col v-for="note in notes" :key="note.title" :cols="3">
-        <v-card :color="note.color">
-          <v-card-title v-text="note.title"></v-card-title>
-          <v-card-subtitle v-if="note.content"
-            >{{ note.content }}
-            <div v-if="note.tasks">
-              <v-checkbox
-                v-for="(task, i) in note.tasks"
-                :key="i"
-                dense
-                class="checkbox"
-                v-model="task.isDone"
-                :label="task.title"
-              ></v-checkbox></div
-          ></v-card-subtitle>
-        </v-card>
+        <note-card :note="note" />
       </v-col>
     </v-row>
   </div>
@@ -32,12 +18,13 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import { namespace } from "vuex-class";
 
 import NotesForm from "../components/Notes/NotesForm.vue";
+import NoteCard from "../components/Notes/NoteCard.vue";
 
 import { Note } from "../store/modules/notes";
 
 const notes = namespace("notes");
 
-@Component({ components: { NotesForm } })
+@Component({ components: { NotesForm, NoteCard } })
 export default class Notes extends Vue {
   public activeLabel = "";
 
@@ -74,5 +61,8 @@ export default class Notes extends Vue {
 <style lang="scss" scoped>
 .notes {
   padding-left: 50px;
+}
+.checkbox {
+  margin-top: 5px !important;
 }
 </style>

@@ -33,9 +33,13 @@ class Notes extends VuexModule {
     {
       title: "there is a cat",
       label: "Private",
-      content: "careful, you don't own any cat.",
+      content: "",
       color: "#A7FFEB",
-      tasks: [{ isDone: false, title: "bring cat back to the neighbors" }]
+      tasks: [
+        { isDone: false, title: "bring cat back to the neighbours" },
+        { isDone: false, title: "get a lawyer" },
+        { isDone: true, title: "find a cat" }
+      ]
     },
     { title: "Do nothing", label: "", content: "", color: defaultColor }
   ];
