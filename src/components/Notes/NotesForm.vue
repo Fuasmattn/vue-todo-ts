@@ -1,17 +1,30 @@
 <template>
   <v-card :color="color">
     <v-form ref="form">
-      <v-text-field
-        @keydown.enter.prevent
-        flat
-        hide-details
-        solo
-        :background-color="color"
-        v-model="title"
-        :label="focused ? 'Title' : 'Write a note...'"
-        :append-icon="focused ? '' : 'mdi-lightbulb-outline'"
-        @focus="focused = true"
-      ></v-text-field>
+      <div class="d-flex pr-3">
+        <v-text-field
+          @keydown.enter.prevent
+          flat
+          hide-details
+          solo
+          :background-color="color"
+          v-model="title"
+          :label="focused ? 'Title' : 'Write a note...'"
+          @focus="focused = true"
+        ></v-text-field>
+        <div v-if="!focused">
+          <v-btn icon class="pa-6 notes-option"
+            ><v-icon>mdi-check-box-outline</v-icon></v-btn
+          >
+          <v-btn icon class="pa-6 notes-option"
+            ><v-icon>mdi-brush</v-icon></v-btn
+          >
+          <v-btn icon class="pa-6 notes-option"
+            ><v-icon>mdi-image-outline</v-icon></v-btn
+          >
+        </div>
+      </div>
+
       <v-expand-transition>
         <div v-if="focused">
           <v-textarea
@@ -26,7 +39,7 @@
             label="Write a note..."
           ></v-textarea>
           <div class="label">
-            <v-chip v-if="label" color="#FFFFFF50" class="ma-2" close>
+            <v-chip v-if="label" color="#00000010" class="ma-2" close>
               {{ label }}
             </v-chip>
           </div>
@@ -110,5 +123,12 @@ export default class NotesForm extends Vue {
   display: flex;
   padding: 5px 15px 5px 8px;
   justify-content: space-between;
+}
+
+.notes-option {
+  &:hover,
+  &:focus > * {
+    color: black !important;
+  }
 }
 </style>
