@@ -1,5 +1,10 @@
 <template>
-  <v-dialog @input="setOpen(false)" :value="open" width="600">
+  <v-dialog
+    @input="setOpen(false)"
+    overlay-color="#e5e5e5"
+    :value="open"
+    width="600"
+  >
     <v-card v-if="note" :color="note.color">
       <v-card-text class="px-1">
         <v-form ref="form">
