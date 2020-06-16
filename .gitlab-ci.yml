@@ -1,0 +1,20 @@
+image: node:12
+# add 'node_modules' to cache for speeding up builds
+cache:
+  paths:
+    - node_modules/
+before_script:
+  - npm install
+# the 'pages' job will deploy and build your site to the 'public' path
+pages:
+  stage: deploy
+  script:
+    - npm run build
+  tags:
+    - build
+  artifacts:
+    paths:
+      - public
+    expire_in: 1 week
+  only:
+    - master
