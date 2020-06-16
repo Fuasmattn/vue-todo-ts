@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" scrollable width="300">
+  <v-dialog v-model="dialog" overlay-color="#e5e5e5" scrollable width="300">
     <template v-slot:activator="{ on, attrs }">
       <span class="font-weight-medium" v-bind="attrs" v-on="on">
         Edit Labels
