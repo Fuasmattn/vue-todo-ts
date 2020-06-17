@@ -11,6 +11,7 @@ pages:
   script:
     - npm run build
     - mv dist public
+    - cp src/assets/* dist/img/ # webpack actually should take care of this..
   tags:
     - build
   artifacts:
