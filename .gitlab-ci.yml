@@ -10,11 +10,12 @@ pages:
   stage: deploy
   script:
     - npm run build
+    - mv dist public
   tags:
     - build
   artifacts:
     paths:
-      - dist
+      - public
     expire_in: 1 week
   only:
     - master
